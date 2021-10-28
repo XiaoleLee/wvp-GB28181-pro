@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+  zlmediakit:
+    image: panjjo/zlmediakit
+    container_name: zlmediakit
+    #    restart: always
+    hostname: zlmediakit
+    ports:
+      - 1935:1935
+      - 19350:19350
+      - 80:80
+      - 10000:10000
+      - 10000:10000/udp
+      - 443:443
+      - 554:554
+      - 332:332
+      - 30000-30500:30000-30500
+      - 30000-30500:30000-30500/udp
+  wvp_redis:
+    image: redis:6.0
+    container_name: wvp_redis
+    #    restart: always
+    hostname: wvp_redis
+    ports:
+      - 6379:6379
