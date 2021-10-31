@@ -75,6 +75,7 @@ public class ZLMRunner implements CommandLineRunner {
         // 获取所有的zlm， 并开启主动连接
         List<MediaServerItem> all = mediaServerService.getAllFromDatabase();
         if (all.size() == 0) {
+            // 如果数据库中不存在，就获取默认zlm
             all.add(mediaConfig.getMediaSerItem());
         }
         for (MediaServerItem mediaServerItem : all) {

@@ -27,3 +27,11 @@ hs_err_pid*
 /target/
 
 /src/main/resources/static/
+
+_wvp_env/db/var/*
+
+_wvp_env/zlmediakit/*
+
+_wvp_one_env/wvp_1/*
+
+_wvp_one_env/wvp_2/*

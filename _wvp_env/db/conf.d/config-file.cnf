@@ -1,0 +1,23 @@
+[mysqld]
+#表名不区分大小写
+lower_case_table_names=1
+#server-id=1
+datadir=/var/lib/mysql
+#socket=/var/lib/mysql/mysqlx.sock
+#symbolic-links=0
+#sql_mode=NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES
+
+# log config
+server-id=1
+log-bin=mysql-bin
+binlog_format=MIXED
+sync_binlog=1         #控制数据库的binlog刷到磁盘上去 , 0 不控制，性能最好，1每次事物提交都会刷到日志文件中，性能最差，最安全
+expire_logs_days=7                           #binlog过期清理时间
+max_binlog_size=100m                    #binlog每个日志文件大小
+binlog_cache_size=4m                        #binlog缓存大小
+max_binlog_cache_size=512m              #最大binlog缓存大
+binlog-ignore-db=mysql #不生成日志文件的数据库，多个忽略数据库可以用逗号拼接，或者 复制这句话，写多行
+
+[mysqld_safe]
+log-error=/var/log/mysqld.log
+pid-file=/var/run/mysqld/mysqld.pid

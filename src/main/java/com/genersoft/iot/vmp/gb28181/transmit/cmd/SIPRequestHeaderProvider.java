@@ -75,7 +75,8 @@ public class SIPRequestHeaderProvider {
 		//from
 		SipURI fromSipURI = sipFactory.createAddressFactory().createSipURI(sipConfig.getId(),sipConfig.getDomain());
 		Address fromAddress = sipFactory.createAddressFactory().createAddress(fromSipURI);
-		FromHeader fromHeader = sipFactory.createHeaderFactory().createFromHeader(fromAddress, fromTag); //必须要有标记，否则无法创建会话，无法回应ack
+		//必须要有标记，否则无法创建会话，无法回应ack
+		FromHeader fromHeader = sipFactory.createHeaderFactory().createFromHeader(fromAddress, fromTag);
 		//to
 		SipURI toSipURI = sipFactory.createAddressFactory().createSipURI(channelId,sipConfig.getDomain()); 
 		Address toAddress = sipFactory.createAddressFactory().createAddress(toSipURI);

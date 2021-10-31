@@ -118,6 +118,7 @@ public class StreamProxyServiceImpl implements IStreamProxyService {
 
     @Override
     public JSONObject addStreamProxyToZlm(StreamProxyItem param) {
+        logger.info("添加拉流代理 : {}", param);
         JSONObject result = null;
         MediaServerItem mediaServerItem = null;
         if (param.getMediaServerId() == null) {

@@ -1,7 +1,13 @@
 package com.genersoft.iot.vmp.media.zlm.dto;
 
 import com.genersoft.iot.vmp.gb28181.bean.GbStream;
+import lombok.ToString;
 
+
+/**
+ * @author wvp
+ */
+@ToString
 public class StreamProxyItem extends GbStream {
 
     private String type;

@@ -1,8 +1,11 @@
 package com.genersoft.iot.vmp.gb28181.bean;
 
+import lombok.ToString;
+
 /**
  * 直播流关联国标上级平台
  */
+@ToString
 public class GbStream extends PlatformGbStream{
 
     private String app;

@@ -158,7 +158,9 @@ public class ZLMHttpHookListener {
 		ret.put("msg", "success");
 		ret.put("enableHls", true);
 		ret.put("enableMP4", userSetup.isRecordPushLive());
-		ret.put("enableRtxp", true);
+		// todo 不自动录制
+		ret.put("enableRtxp", false);
+//		ret.put("enableRtxp", true);
 		return new ResponseEntity<String>(ret.toString(), HttpStatus.OK);
 	}
 	
@@ -318,45 +320,57 @@ public class ZLMHttpHookListener {
 	@ResponseBody
 	@PostMapping(value = "/on_stream_none_reader", produces = "application/json;charset=UTF-8")
 	public ResponseEntity<String> onStreamNoneReader(@RequestBody JSONObject json){
-		
+
+		/**
+		 * 调试期间，无人观看不关闭
+		 * 后面根据需要再调整
+		 * todo
+		 */
+
 		if (logger.isDebugEnabled()) {
 			logger.debug("ZLM HOOK on_stream_none_reader API调用，参数：" + json.toString());
 		}
-		String mediaServerId = json.getString("mediaServerId");
-		String streamId = json.getString("stream");
-		String app = json.getString("app");
 
-		if ("rtp".equals(app)){
-			JSONObject ret = new JSONObject();
-			ret.put("code", 0);
-			ret.put("close", true);
-			StreamInfo streamInfoForPlayCatch = redisCatchStorage.queryPlayByStreamId(streamId);
-			if (streamInfoForPlayCatch != null) {
-				if (redisCatchStorage.isChannelSendingRTP(streamInfoForPlayCatch.getChannelId())) {
-					ret.put("close", false);
-				} else {
-					cmder.streamByeCmd(streamInfoForPlayCatch.getDeviceID(), streamInfoForPlayCatch.getChannelId());
-					redisCatchStorage.stopPlay(streamInfoForPlayCatch);
-					storager.stopPlay(streamInfoForPlayCatch.getDeviceID(), streamInfoForPlayCatch.getChannelId());
-				}
-			}else{
-				StreamInfo streamInfoForPlayBackCatch = redisCatchStorage.queryPlaybackByStreamId(streamId);
-				if (streamInfoForPlayBackCatch != null) {
-					cmder.streamByeCmd(streamInfoForPlayBackCatch.getDeviceID(), streamInfoForPlayBackCatch.getChannelId());
-					redisCatchStorage.stopPlayback(streamInfoForPlayBackCatch);
-				}
-			}
-			MediaServerItem mediaServerItem = mediaServerService.getOne(mediaServerId);
-			if (mediaServerItem != null && "-1".equals(mediaServerItem.getStreamNoneReaderDelayMS())) {
-				ret.put("close", false);
-			}
-			return new ResponseEntity<String>(ret.toString(),HttpStatus.OK);
-		}else {
-			JSONObject ret = new JSONObject();
-			ret.put("code", 0);
-			ret.put("close", false);
-			return new ResponseEntity<String>(ret.toString(),HttpStatus.OK);
-		}
+		JSONObject ret = new JSONObject();
+		ret.put("code", 0);
+		ret.put("close", false);
+		return new ResponseEntity<String>(ret.toString(),HttpStatus.OK);
+
+//		String mediaServerId = json.getString("mediaServerId");
+//		String streamId = json.getString("stream");
+//		String app = json.getString("app");
+//
+//		if ("rtp".equals(app)){
+//			JSONObject ret = new JSONObject();
+//			ret.put("code", 0);
+//			ret.put("close", true);
+//			StreamInfo streamInfoForPlayCatch = redisCatchStorage.queryPlayByStreamId(streamId);
+//			if (streamInfoForPlayCatch != null) {
+//				if (redisCatchStorage.isChannelSendingRTP(streamInfoForPlayCatch.getChannelId())) {
+//					ret.put("close", false);
+//				} else {
+//					cmder.streamByeCmd(streamInfoForPlayCatch.getDeviceID(), streamInfoForPlayCatch.getChannelId());
+//					redisCatchStorage.stopPlay(streamInfoForPlayCatch);
+//					storager.stopPlay(streamInfoForPlayCatch.getDeviceID(), streamInfoForPlayCatch.getChannelId());
+//				}
+//			}else{
+//				StreamInfo streamInfoForPlayBackCatch = redisCatchStorage.queryPlaybackByStreamId(streamId);
+//				if (streamInfoForPlayBackCatch != null) {
+//					cmder.streamByeCmd(streamInfoForPlayBackCatch.getDeviceID(), streamInfoForPlayBackCatch.getChannelId());
+//					redisCatchStorage.stopPlayback(streamInfoForPlayBackCatch);
+//				}
+//			}
+//			MediaServerItem mediaServerItem = mediaServerService.getOne(mediaServerId);
+//			if (mediaServerItem != null && "-1".equals(mediaServerItem.getStreamNoneReaderDelayMS())) {
+//				ret.put("close", false);
+//			}
+//			return new ResponseEntity<String>(ret.toString(),HttpStatus.OK);
+//		}else {
+//			JSONObject ret = new JSONObject();
+//			ret.put("code", 0);
+//			ret.put("close", false);
+//			return new ResponseEntity<String>(ret.toString(),HttpStatus.OK);
+//		}
 
 	}
 	

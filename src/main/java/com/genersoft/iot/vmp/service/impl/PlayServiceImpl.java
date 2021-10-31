@@ -75,6 +75,15 @@ public class PlayServiceImpl implements IPlayService {
     private UserSetup userSetup;
 
 
+    /**
+     * 播放
+     * @param mediaServerItem
+     * @param deviceId
+     * @param channelId
+     * @param hookEvent
+     * @param errorEvent
+     * @return
+     */
     @Override
     public PlayResult play(MediaServerItem mediaServerItem, String deviceId, String channelId, ZLMHttpHookSubscribe.Event hookEvent, SipSubscribe.Event errorEvent) {
         PlayResult playResult = new PlayResult();
@@ -275,7 +284,9 @@ public class PlayServiceImpl implements IPlayService {
 
     @Override
     public MediaServerItem getNewMediaServerItem(Device device) {
-        if (device == null) return null;
+        if (device == null) {
+            return null;
+        }
         String mediaServerId = device.getMediaServerId();
         MediaServerItem mediaServerItem = null;
         if (mediaServerId == null) {

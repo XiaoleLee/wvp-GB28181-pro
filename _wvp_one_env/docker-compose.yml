@@ -1,0 +1,41 @@
+version: "3"
+
+services:
+  wvp_1:
+    image: 648540858/wvp_pro
+    container_name: wvp_1
+    #    restart: always
+    hostname: wvp_1
+    ports:
+      - 18080:18080
+      - 30000-30500:30000-30500/udp
+      - 30000-30500:30000-30500/tcp
+      - 80:80
+      - 5060:5060
+      - 5060:5060/udp
+    environment:
+      - WVP_IP=10.169.12.30
+#    volumes:
+#      - ./wvp_1/media/:/opt/media/www/record
+#      - ./wvp_1/log/assist/:/opt/assist/logs
+#      - ./wvp_1/log/media/:/opt/media/log
+#      - ./wvp_1/log/wvp/:/opt/wvp/logs
+#  wvp_2:
+#    image: 648540858/wvp_pro
+#    container_name: wvp_2
+#    #    restart: always
+#    hostname: wvp_2
+#    ports:
+#      - 18081:18080
+#      - 31000-31500:30000-30500/udp
+#      - 31000-31500:30000-30500/tcp
+#      - 8081:80
+#      - 5061:5060
+#      - 5061:5060/udp
+#    environment:
+#      - WVP_IP="10.169.12.30"
+#    volumes:
+#      - ./wvp_2/media/:/opt/media/www/record
+#      - ./wvp_2/log/assist/:/opt/assist/logs
+#      - ./wvp_2/log/media/:/opt/media/log
+#      - ./wvp_2/log/wvp/:/opt/wvp/logs

@@ -17,6 +17,8 @@ services:
       - 332:332
       - 30000-30500:30000-30500
       - 30000-30500:30000-30500/udp
+    volumes:
+      - ./zlmediakit/:/zlmediakit/www
   wvp_redis:
     image: redis:6.0
     container_name: wvp_redis
@@ -24,3 +26,14 @@ services:
     hostname: wvp_redis
     ports:
       - 6379:6379
+#  wvp_mysql:
+#    image: registry.cn-hangzhou.aliyuncs.com/lelesang/mysql:5.7.29
+#    container_name: wvp_mysql
+#    hostname: wvp_mysql
+#    ports:
+#      - 13306:3306
+#    environment:
+#      MYSQL_ROOT_PASSWORD: pwroot123
+#    volumes:
+#      - ./db/conf.d:/etc/mysql/conf.d
+#      - ./db/var/lib/mysql:/var/lib/mysql

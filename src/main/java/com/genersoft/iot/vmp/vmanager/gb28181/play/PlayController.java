@@ -85,9 +85,11 @@ public class PlayController {
 	public DeferredResult<ResponseEntity<String>> play(@PathVariable String deviceId,
 													   @PathVariable String channelId) {
 
-		// 获取可用的zlm
+		// 获取设备
 		Device device = storager.queryVideoDevice(deviceId);
+		// 获取zlm
 		MediaServerItem newMediaServerItem = playService.getNewMediaServerItem(device);
+
 		PlayResult playResult = playService.play(newMediaServerItem, deviceId, channelId, null, null);
 
 		return playResult.getResult();

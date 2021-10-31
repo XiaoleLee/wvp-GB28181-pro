@@ -90,9 +90,18 @@ public class ZLMRESTfulUtils {
         return responseJSON;
     }
 
+    /**
+     * 参考这里实现抽帧
+     * @param mediaServerItem
+     * @param api
+     * @param params
+     * @param targetPath
+     * @param fileName
+     */
     public void sendGetForImg(MediaServerItem mediaServerItem, String api, Map<String, Object> params, String targetPath, String fileName) {
         String url = String.format("http://%s:%s/index/api/%s", mediaServerItem.getIp(), mediaServerItem.getHttpPort(), api);
         logger.debug(url);
+        logger.info("get img : {}", url);
         HttpUrl.Builder httpBuilder = HttpUrl.parse(url).newBuilder();
 
         httpBuilder.addQueryParameter("secret", mediaServerItem.getSecret());
@@ -223,6 +232,17 @@ public class ZLMRESTfulUtils {
         return sendPost(mediaServerItem, "stopSendRtp",param, null);
     }
 
+    /**
+     * 添加拉流代理
+     * @param mediaServerItem
+     * @param app
+     * @param stream
+     * @param url
+     * @param enable_hls
+     * @param enable_mp4
+     * @param rtp_type
+     * @return
+     */
     public JSONObject addStreamProxy(MediaServerItem mediaServerItem, String app, String stream, String url, boolean enable_hls, boolean enable_mp4, String rtp_type) {
         Map<String, Object> param = new HashMap<>();
         param.put("vhost", "__defaultVhost__");
