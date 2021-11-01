@@ -9,7 +9,7 @@
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
-src/main/resources/application-*.yml
+#src/main/resources/application-*.yml
 # Package Files #
 #*.jar
 *.war
@@ -35,3 +35,5 @@ _wvp_env/zlmediakit/*
 _wvp_one_env/wvp_1/*
 
 _wvp_one_env/wvp_2/*
+
+logs/*
